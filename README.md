@@ -1,46 +1,29 @@
-# Getting Started with Create React App
+# modal JavaScript to TypeScript project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Key changes
 
-## Available Scripts
+- index.tsx
+  - explicitly type `document.getElementById(’root’)` → TS needs to ensure it is not null because `document.getElementById` can return `null`
+  ```tsx
+  const rootElement = document.getElementById('root');
+  ...
+  const root = ReactDOM.createRoot(rootElement as HTMLElement);
+  ```
+  - `HTMLElement` : a base/generic type for all specific HTML element types, like HTMLDivElement, HTMLInputElement, etc
+- App.tsx
+  - constants are string types
+  - `const App: React.FC = () ⇒ {…}` : React.FC (Functional Component)
+  - `useState` initial state with type inference
+  - event handling functions doesn’t return anything → `void`
+  - (line91) `(e: React.ChangeEvent<HTMLInputElement>)` : typing change event from input element - event from an `HTMLInputElement`
 
-In the project directory, you can run:
+## Trouble shooting
 
-### `npm start`
+문제1. tsc 명령어를 쳤는데 .tsx 파일을 담은 디렉토리 생성 안됨
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- change the .jsx .js file → .tsx, .ts (.js 를 .ts로 했을 때 트랜스파일이 안됐었음. .js→ .tsx 로 바꾸니 됨.
+- tsconfig.json 설정 확인: include, exclude, outDir, module: “ESNext” 추가, noEmit 삭제(outDir 와 모순됨) (chatGPT 이용)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+문제2. tailwind 적용이 안됨.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- install tailwind, configuration 확인
