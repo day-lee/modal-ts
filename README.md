@@ -19,11 +19,11 @@
 
 ## Trouble shooting
 
-문제1. tsc 명령어를 쳤는데 .tsx 파일을 담은 디렉토리 생성 안됨
+1. directory with .tsx files not created after running `tsc`
 
-- change the .jsx .js file → .tsx, .ts (.js 를 .ts로 했을 때 트랜스파일이 안됐었음. .js→ .tsx 로 바꾸니 됨.
-- tsconfig.json 설정 확인: include, exclude, outDir, module: “ESNext” 추가, noEmit 삭제(outDir 와 모순됨) (chatGPT 이용)
+- change the `.jsx` and `.js` files to `.tsx` and `.ts` (.js -> .ts didn't work, but .js -> .tsx worked)
+- check tsconfig.json: added `include`, `exclude`, `outDir`, `module: “ESNext”` , removed `noEmit`(conflicts with `outDir`)
 
-문제2. tailwind 적용이 안됨.
+2. tailwindCSS it not being applied
 
-- install tailwind, configuration 확인
+- install tailwind, check configuration
